@@ -1,12 +1,15 @@
 package com.prokopchuk.airportmanagementbackend;
 
+import com.prokopchuk.airportmanagementbackend.database.DatabaseConnector;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @WebServlet(name = "helloServlet", value = "/hello-servlet")
 public class HelloServlet extends HttpServlet {
 
@@ -22,7 +25,7 @@ public class HelloServlet extends HttpServlet {
     // Hello
     PrintWriter out = response.getWriter();
     out.println("<html><body>");
-    out.println("<h1>" + message + "</h1>");
+    out.println("<h1>" + message + "AFFAAFAF" + "</h1>");
     out.println("</body></html>");
   }
 
