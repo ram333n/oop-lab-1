@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS flights(
 );
 
 CREATE TABLE IF NOT EXISTS crew_members_flights(
-    fk_crew_member_id BIGINT REFERENCES crew_members(id) ON DELETE CASCADE ,
+    id BIGSERIAL PRIMARY KEY,
+    fk_crew_member_id BIGINT REFERENCES crew_members(id) ON DELETE CASCADE,
     fk_flight_id BIGINT REFERENCES flights(id) ON DELETE CASCADE
 )
