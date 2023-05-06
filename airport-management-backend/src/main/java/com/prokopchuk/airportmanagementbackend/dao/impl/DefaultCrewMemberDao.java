@@ -10,12 +10,73 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class DefaultCrewMemberDao implements CrewMemberDao {
+
+  @Override
+  public List<CrewMember> findAll() {
+    String sql = "SELECT * FROM crew_members";
+
+    try (Connection connection = DatabaseConnector.getConnection();
+         Statement statement = connection.createStatement()) {
+      List<CrewMember> result = new ArrayList<>();
+
+      try (ResultSet rs = statement.executeQuery(sql)) {
+        while (rs.next()) {
+          result.add(extractCrewMember(rs));
+        }
+      }
+
+      return result;
+    } catch (Exception e) {
+      log.warn("Unable to find all crew members. Error message: {}", e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
+    }
+  }
+
+  private CrewMember extractCrewMember(ResultSet rs) throws SQLException {
+    CrewMember crewMember = new CrewMember();
+    crewMember.setId(rs.getLong("id"));
+    crewMember.setName(rs.getString("name"));
+    crewMember.setSurname(rs.getString("surname"));
+    crewMember.setPosition(Position.valueOf(rs.getString("position")));
+
+    return crewMember;
+  }
+
+  @Override
+  public List<CrewMember> findAllByFlightId(Long flightId) {
+    String sql = """
+      SELECT cm.*
+      FROM crew_members cm
+      INNER JOIN crew_members_flights cmf
+      ON cmf.fk_crew_member_id = cm.id
+      WHERE cmf.fk_flight_id = ?
+    """;
+
+    try (Connection connection = DatabaseConnector.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setLong(1, flightId);
+      List<CrewMember> result = new ArrayList<>();
+
+      try (ResultSet rs = statement.executeQuery()) {
+        while (rs.next()) {
+          result.add(extractCrewMember(rs));
+        }
+      }
+
+      return result;
+    } catch (Exception e) {
+      log.warn("Unable to find crew members by flight id: {}. Error message: {}", flightId, e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
+    }
+  }
 
   @Override
   public Optional<CrewMember> findById(Long id) {
@@ -37,16 +98,6 @@ public class DefaultCrewMemberDao implements CrewMemberDao {
       log.warn("Unable to find crew member with id: {}. Error message: {}", id, e.getMessage());
       throw new DatabaseOperationFailedException(e.getMessage());
     }
-  }
-
-  private CrewMember extractCrewMember(ResultSet rs) throws SQLException {
-    CrewMember crewMember = new CrewMember();
-    crewMember.setId(rs.getLong("id"));
-    crewMember.setName(rs.getString("name"));
-    crewMember.setSurname(rs.getString("surname"));
-    crewMember.setPosition(Position.valueOf(rs.getString("position")));
-
-    return crewMember;
   }
 
   @Override

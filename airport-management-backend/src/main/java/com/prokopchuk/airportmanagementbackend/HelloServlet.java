@@ -11,6 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -33,7 +35,9 @@ public class HelloServlet extends HttpServlet {
 //        .surname("KEK")
 //        .position(Position.OPERATOR)
 //        .build()));
-    System.out.println(dao.delete(7L));
+    System.out.println(dao.findAllByFlightId(1L));
+    System.out.println(dao.findAllByFlightId(3L));
+    System.out.println(dao.findAllByFlightId(4L));
 
     // Hello
     PrintWriter out = response.getWriter();
