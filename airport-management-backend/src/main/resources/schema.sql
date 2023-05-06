@@ -9,8 +9,8 @@ CREATE TABLE IF NOT EXISTS flights(
     id BIGSERIAL PRIMARY KEY,
     departure_from VARCHAR(255) NOT NULL,
     destination VARCHAR(255) NOT NULL,
-    departure_time timestamp(6) NOT NULL,
-    arrival_time timestamp(6) NOT NULL
+    departure_time TIMESTAMP(6) NOT NULL,
+    arrival_time TIMESTAMP(6) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS crew_members_flights(
