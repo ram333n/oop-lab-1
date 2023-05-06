@@ -1,6 +1,10 @@
 package com.prokopchuk.airportmanagementbackend;
 
+import com.prokopchuk.airportmanagementbackend.dao.CrewMemberDao;
+import com.prokopchuk.airportmanagementbackend.dao.impl.DefaultCrewMemberDao;
 import com.prokopchuk.airportmanagementbackend.database.DatabaseConnector;
+import com.prokopchuk.airportmanagementbackend.model.CrewMember;
+import com.prokopchuk.airportmanagementbackend.model.Position;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,6 +25,15 @@ public class HelloServlet extends HttpServlet {
 
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     response.setContentType("text/html");
+
+    CrewMemberDao dao = new DefaultCrewMemberDao();
+//    System.out.println(dao.update(CrewMember.builder()
+//        .id(7L)
+//        .name("Normal")
+//        .surname("KEK")
+//        .position(Position.OPERATOR)
+//        .build()));
+    System.out.println(dao.delete(7L));
 
     // Hello
     PrintWriter out = response.getWriter();

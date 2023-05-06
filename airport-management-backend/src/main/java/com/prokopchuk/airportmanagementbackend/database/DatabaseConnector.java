@@ -1,6 +1,6 @@
 package com.prokopchuk.airportmanagementbackend.database;
 
-import com.prokopchuk.airportmanagementbackend.exception.DatabaseConnectionFailedException;
+import com.prokopchuk.airportmanagementbackend.exception.DatabaseOperationFailedException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -28,7 +28,7 @@ public final class DatabaseConnector {
       return connection;
     } catch (SQLException | ClassNotFoundException e) {
       log.warn("Unable to get database connection. Message: {}", e.getMessage());
-      throw new DatabaseConnectionFailedException(e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
     }
   }
 

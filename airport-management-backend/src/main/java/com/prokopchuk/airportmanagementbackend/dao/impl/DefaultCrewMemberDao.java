@@ -2,12 +2,15 @@ package com.prokopchuk.airportmanagementbackend.dao.impl;
 
 import com.prokopchuk.airportmanagementbackend.dao.CrewMemberDao;
 import com.prokopchuk.airportmanagementbackend.database.DatabaseConnector;
+import com.prokopchuk.airportmanagementbackend.exception.DatabaseOperationFailedException;
 import com.prokopchuk.airportmanagementbackend.model.CrewMember;
 import com.prokopchuk.airportmanagementbackend.model.Position;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,8 +33,9 @@ public class DefaultCrewMemberDao implements CrewMemberDao {
       }
 
       return result;
-    } catch (SQLException e) {
-      throw new RuntimeException(e);
+    } catch (Exception e) {
+      log.warn("Unable to find crew member with id: {}. Error message: {}", id, e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
     }
   }
 
@@ -47,17 +51,70 @@ public class DefaultCrewMemberDao implements CrewMemberDao {
 
   @Override
   public CrewMember insert(CrewMember toInsert) {
-    return null;
+    String sql = "INSERT INTO crew_members (name, surname, position) VALUES (?, ?, ?)";
+
+    try (Connection connection = DatabaseConnector.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+      setParamsToInsert(statement, toInsert);
+      statement.executeUpdate();
+
+      try (ResultSet rs = statement.getGeneratedKeys()) {
+        rs.next();
+
+        return extractCrewMember(rs);
+      }
+    } catch (Exception e) {
+      log.warn("Unable to insert crew member: {}. Error message: {}", toInsert, e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
+    }
+  }
+
+  private void setParamsToInsert(PreparedStatement statement, CrewMember crewMember)
+      throws SQLException {
+    statement.setString(1, crewMember.getName());
+    statement.setString(2, crewMember.getSurname());
+    statement.setString(3, crewMember.getPosition().toString());
   }
 
   @Override
   public CrewMember update(CrewMember toUpdate) {
-    return null;
+    String sql = "UPDATE crew_members SET name = ?, surname = ?, position = ? WHERE id = ?";
+
+    try (Connection connection = DatabaseConnector.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+      setParamsToUpdate(statement, toUpdate);
+      statement.executeUpdate();
+
+      return findById(toUpdate.getId()).orElseThrow(() -> {
+        throw new NoSuchElementException(String.format("Crew member with id: %d not found", toUpdate.getId()));
+      });
+    } catch (Exception e) {
+      log.warn("Unable to update crew member: {}. Error message: {}", toUpdate, e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
+    }
+  }
+
+  private void setParamsToUpdate(PreparedStatement statement, CrewMember crewMember)
+      throws SQLException {
+    statement.setString(1, crewMember.getName());
+    statement.setString(2, crewMember.getSurname());
+    statement.setString(3, crewMember.getPosition().toString());
+    statement.setLong(4, crewMember.getId());
   }
 
   @Override
   public boolean delete(Long id) {
-    return false;
+    String sql = "DELETE FROM crew_members WHERE id = ?";
+
+    try (Connection connection = DatabaseConnector.getConnection();
+         PreparedStatement statement = connection.prepareStatement(sql)) {
+      statement.setLong(1, id);
+
+      return statement.executeUpdate() > 0;
+    } catch (Exception e) {
+      log.warn("Unable to delete crew member with id: {}. Error message: {}", id, e.getMessage());
+      throw new DatabaseOperationFailedException(e.getMessage());
+    }
   }
 
 }
