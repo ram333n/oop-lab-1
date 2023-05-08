@@ -22,13 +22,7 @@ import org.mockito.Mockito;
 class CrewMemberServiceTest {
 
   private final CrewMemberDao crewMemberDao = Mockito.mock(CrewMemberDao.class);
-
-  private final CrewMemberFlightRelationDao crewMemberFlightRelationDao
-      = Mockito.mock(CrewMemberFlightRelationDao.class);
-
-  private final CrewMemberService service
-      = new DefaultCrewMemberService(crewMemberDao, crewMemberFlightRelationDao);
-
+  private final CrewMemberService service = new DefaultCrewMemberService(crewMemberDao);
   private final CrewMemberMapper mapper = Mappers.getMapper(CrewMemberMapper.class);
 
   @Test

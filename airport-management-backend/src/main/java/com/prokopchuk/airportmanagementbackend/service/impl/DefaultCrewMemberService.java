@@ -16,17 +16,14 @@ import org.mapstruct.factory.Mappers;
 public class DefaultCrewMemberService implements CrewMemberService {
 
   private final CrewMemberDao crewMemberDao;
-  private final CrewMemberFlightRelationDao relationDao;
   private final CrewMemberMapper mapper;
 
   public DefaultCrewMemberService() {
-    this(new DefaultCrewMemberDao(), new DefaultCrewMemberFlightRelationDao());
+    this(new DefaultCrewMemberDao());
   }
 
-  public DefaultCrewMemberService(CrewMemberDao crewMemberDao,
-                                  CrewMemberFlightRelationDao relationDao) {
+  public DefaultCrewMemberService(CrewMemberDao crewMemberDao) {
     this.crewMemberDao = crewMemberDao;
-    this.relationDao = relationDao;
     this.mapper = Mappers.getMapper(CrewMemberMapper.class);
   }
 
