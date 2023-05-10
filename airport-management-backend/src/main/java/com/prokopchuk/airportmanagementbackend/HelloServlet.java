@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mapstruct.factory.Mappers;
 
 @Slf4j
-@WebServlet(name = "helloServlet", value = "/hello-servlet")
+@WebServlet(name = "helloServlet", value = "/hello-servlet/{aboba}")
 public class HelloServlet extends HttpServlet {
 
   private String message;
