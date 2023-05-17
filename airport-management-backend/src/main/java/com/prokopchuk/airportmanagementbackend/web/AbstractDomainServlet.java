@@ -17,7 +17,7 @@ public abstract class AbstractDomainServlet extends HttpServlet {
   protected CrewMemberFlightRelationService relationService;
 
   @Override
-  public void init() throws ServletException {
+  public void init() {
     this.crewMemberService = new DefaultCrewMemberService();
     this.flightService = new DefaultFlightService();
     this.relationService = new DefaultCrewMemberFlightRelationService();
