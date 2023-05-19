@@ -3,7 +3,6 @@ package com.prokopchuk.airportmanagementbackend.web.crewmember;
 import com.prokopchuk.airportmanagementbackend.common.dto.crewmember.CrewMemberDto;
 import com.prokopchuk.airportmanagementbackend.util.WebUtils;
 import com.prokopchuk.airportmanagementbackend.web.AbstractDomainServlet;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -16,7 +15,7 @@ public class UpdateCrewMemberServlet extends AbstractDomainServlet {
 
   @Override
   protected void doPut(HttpServletRequest request, HttpServletResponse response)
-      throws ServletException, IOException {
+      throws IOException {
     CrewMemberDto toUpdate = WebUtils.readBody(request, CrewMemberDto.class);
     log.info("Request on updating crew member. Crew member: {}", toUpdate);
 

@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.prokopchuk.airportmanagementbackend.common.dto.crewmember.CrewMemberDto;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,5 +26,11 @@ public class FlightDto {
   private LocalDateTime departureTime;
   private LocalDateTime arrivalTime;
   private List<CrewMemberDto> crewMembers;
+
+  public void createCrewMembersIfAbsent() {
+    if (crewMembers == null) {
+      crewMembers = new ArrayList<>();
+    }
+  }
 
 }

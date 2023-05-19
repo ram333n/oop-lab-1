@@ -6,7 +6,6 @@ import com.prokopchuk.airportmanagementbackend.service.FlightService;
 import com.prokopchuk.airportmanagementbackend.service.impl.DefaultCrewMemberFlightRelationService;
 import com.prokopchuk.airportmanagementbackend.service.impl.DefaultCrewMemberService;
 import com.prokopchuk.airportmanagementbackend.service.impl.DefaultFlightService;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 
 
