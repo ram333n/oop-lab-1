@@ -3,7 +3,6 @@ package com.prokopchuk.airportmanagementbackend.web.flight;
 import com.prokopchuk.airportmanagementbackend.common.dto.ErrorMessage;
 import com.prokopchuk.airportmanagementbackend.util.WebUtils;
 import com.prokopchuk.airportmanagementbackend.web.AbstractDomainServlet;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
