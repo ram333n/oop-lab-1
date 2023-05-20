@@ -1,10 +1,6 @@
-import {Position} from "../enums/Position";
 import {Flight} from "./Flight";
+import {CrewMember} from "./CrewMember";
 
-export interface CrewMembersWithFlights {
-  id: number;
-  name: string;
-  surname: string;
-  position: Position;
-  flights: Flight[]
+export interface CrewMembersWithFlights extends CrewMember {
+  flights: Flight[];
 }

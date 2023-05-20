@@ -3,6 +3,7 @@ import {CrewMembersComponent} from "./features/crew-members/crew-members.compone
 import {NgModule} from "@angular/core";
 import {AppComponent} from "./app.component";
 import {FlightsComponent} from "./features/flights/flights.component";
+import {CrewMemberComponent} from "./features/crew-member/crew-member.component";
 
 const routes: Routes = [
   {
@@ -13,6 +14,11 @@ const routes: Routes = [
     title: 'Crew members',
     path: 'crew-members',
     component: CrewMembersComponent
+  },
+  {
+    title: 'Crew member',
+    path: 'crew-members/get/:id',
+    component: CrewMemberComponent
   },
   {
     title: 'Flights',

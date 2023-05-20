@@ -31,7 +31,9 @@ export class CrewMembersComponent implements OnInit, OnDestroy {
   }
 
   getCrewMemberById(id: number) {
-    //TODO: init
+    this.router.navigate(['get', id], {
+      relativeTo: this.activatedRoute
+    })
   }
 
   deleteCrewMember(id: number) {

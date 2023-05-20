@@ -8,13 +8,15 @@ import { CrewMembersComponent } from './features/crew-members/crew-members.compo
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import { FlightsComponent } from './features/flights/flights.component';
+import { CrewMemberComponent } from './features/crew-member/crew-member.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     CrewMembersComponent,
-    FlightsComponent
+    FlightsComponent,
+    CrewMemberComponent
   ],
   imports: [
     BrowserModule,
