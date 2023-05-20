@@ -20,10 +20,10 @@ public class DeleteCrewMemberByIdServlet extends AbstractDomainServlet {
     log.info("Request on deleting crew member by id. Id: {}", idStr);
 
     Long id = Long.valueOf(idStr);
-    boolean deleted = crewMemberService.delete(id);
+    boolean isDeleted = crewMemberService.delete(id);
 
-    if (deleted) {
-      WebUtils.sendJson(response, null, HttpServletResponse.SC_NO_CONTENT);
+    if (isDeleted) {
+      WebUtils.sendJson(response, "", HttpServletResponse.SC_NO_CONTENT);
     } else {
       ErrorMessage errorMessage = ErrorMessage.of(
           "crew_member_not_found",

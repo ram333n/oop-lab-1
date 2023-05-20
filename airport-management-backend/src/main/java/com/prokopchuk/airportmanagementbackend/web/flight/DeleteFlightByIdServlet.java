@@ -20,10 +20,10 @@ public class DeleteFlightByIdServlet extends AbstractDomainServlet {
     log.info("Request on deleting flight by id. Id: {}", idStr);
 
     Long id = Long.valueOf(idStr);
-    boolean deleted = flightService.delete(id);
+    boolean isDeleted = flightService.delete(id);
 
-    if (deleted) {
-      WebUtils.sendJson(response, null, HttpServletResponse.SC_NO_CONTENT);
+    if (isDeleted) {
+      WebUtils.sendJson(response, "", HttpServletResponse.SC_NO_CONTENT);
     } else {
       ErrorMessage errorMessage = ErrorMessage.of(
           "flight_not_found",
