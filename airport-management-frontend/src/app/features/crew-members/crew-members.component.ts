@@ -10,8 +10,7 @@ import {Subscription} from "rxjs";
   providers: [CrewMemberService]
 })
 export class CrewMembersComponent implements OnInit, OnDestroy {
-  public members: CrewMember[] = [];
-  // private subscription$: Subscription;
+  private _members: CrewMember[] = [];
 
   constructor(private readonly crewMemberService: CrewMemberService,
               private router: Router,
@@ -23,20 +22,29 @@ export class CrewMembersComponent implements OnInit, OnDestroy {
 
   private getCrewMembers(): void {
     this.crewMemberService.getCrewMembers().subscribe(response => {
-      console.log(response.crewMembers);
-      this.members = response.crewMembers;
+      this._members = response.crewMembers;
     })
   }
 
-  ngOnDestroy(): void {
-    // this.subscription$.unsubscribe();
+  get members(): CrewMember[] {
+    return this._members;
   }
 
   getCrewMemberById(id: number) {
-
+    //TODO: init
   }
 
   deleteCrewMember(id: number) {
+    const confirmDelete = confirm(`Do you want to delete crew member with id: ${id}?`);
+
+    if (confirmDelete) {
+      this.crewMemberService.delete(id).subscribe(() => {
+        this.getCrewMembers();
+      })
+    }
+  }
+
+  ngOnDestroy(): void {
 
   }
 }

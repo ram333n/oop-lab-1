@@ -7,12 +7,14 @@ import { NavbarComponent } from './core/components/navbar/navbar.component';
 import { CrewMembersComponent } from './features/crew-members/crew-members.component';
 import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
+import { FlightsComponent } from './features/flights/flights.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    CrewMembersComponent
+    CrewMembersComponent,
+    FlightsComponent
   ],
   imports: [
     BrowserModule,
