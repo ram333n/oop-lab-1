@@ -1,41 +1,41 @@
-package com.prokopchuk.airportmanagementbackend.web.crewmember;
+package com.prokopchuk.airportmanagementbackend.web.flight;
 
 import com.prokopchuk.airportmanagementbackend.common.dto.ErrorMessage;
 import com.prokopchuk.airportmanagementbackend.common.dto.crewmember.CrewMemberDto;
 import com.prokopchuk.airportmanagementbackend.common.dto.flight.FlightDto;
 import com.prokopchuk.airportmanagementbackend.util.WebUtils;
 import com.prokopchuk.airportmanagementbackend.web.AbstractDomainServlet;
-import jakarta.servlet.*;
-import jakarta.servlet.http.*;
-import jakarta.servlet.annotation.*;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@WebServlet(name = "getCrewMemberByIdServlet", value = "/crew-member/get/by-id")
-public class GetCrewMemberByIdServlet extends AbstractDomainServlet {
+@WebServlet(name = "getFlightByIdServlet", value = "/flight/get/by-id")
+public class GetFlightByIdServlet extends AbstractDomainServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, HttpServletResponse response)
       throws IOException {
     String idStr = request.getParameter("id");
-    log.info("Request on retrieving crew member by id. Id: {}", idStr);
+    log.info("Request on retrieving flight by id. Id: {}", idStr);
 
     Long id = Long.valueOf(idStr);
-    Optional<CrewMemberDto> found = crewMemberService.findById(id);
+    Optional<FlightDto> found = flightService.findById(id);
 
     if (found.isPresent()) {
-      CrewMemberDto crewMember = found.get();
-      List<FlightDto> flights = flightService.findAllByCrewMemberId(id);
-      crewMember.setFlights(flights);
+      FlightDto flight = found.get();
+      List<CrewMemberDto> crewMembers = crewMemberService.findAllByFlightId(id);
+      flight.setCrewMembers(crewMembers);
 
-      WebUtils.sendJson(response, crewMember);
+      WebUtils.sendJson(response, flight);
     } else {
       ErrorMessage errorMessage = ErrorMessage.of(
-          "crew_member_not_found",
-          "Crew member not found"
+          "flight_not_found",
+          "Flight not found"
       );
       WebUtils.sendJson(response, errorMessage, HttpServletResponse.SC_NOT_FOUND);
     }
