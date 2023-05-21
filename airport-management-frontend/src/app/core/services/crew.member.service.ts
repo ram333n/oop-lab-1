@@ -22,6 +22,10 @@ export class CrewMemberService {
     return this.httpClient.get<CrewMembersWithFlights>(`${this.baseUrl}/get/by-id?id=${id}`)
   }
 
+  public createCrewMember(toCreate: CrewMember): Observable<CrewMembersWithFlights> {
+    return this.httpClient.post<CrewMembersWithFlights>(`${this.baseUrl}/create`, toCreate)
+  }
+
   public delete(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/delete?id=${id}`);
   }

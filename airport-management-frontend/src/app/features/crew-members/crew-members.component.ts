@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {CrewMemberService} from "../../core/services/crew.member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {CrewMember} from "../../shared/models/CrewMember";
-import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-crew-members',
@@ -48,5 +47,11 @@ export class CrewMembersComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
 
+  }
+
+  showNewCrewMemberForm() {
+    this.router.navigate(['new'], {
+      relativeTo: this.activatedRoute
+    })
   }
 }

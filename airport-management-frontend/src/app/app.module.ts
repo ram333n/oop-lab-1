@@ -9,6 +9,8 @@ import {HttpClientModule} from "@angular/common/http";
 import {AppRoutingModule} from "./app-routing.module";
 import { FlightsComponent } from './features/flights/flights.component';
 import { CrewMemberComponent } from './features/crew-member/crew-member.component';
+import { CrewMemberNewFormComponent } from './features/crew-member-new-form/crew-member-new-form.component';
+import { FormsModule } from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,14 +18,16 @@ import { CrewMemberComponent } from './features/crew-member/crew-member.componen
     NavbarComponent,
     CrewMembersComponent,
     FlightsComponent,
-    CrewMemberComponent
+    CrewMemberComponent,
+    CrewMemberNewFormComponent
   ],
   imports: [
     BrowserModule,
     RouterOutlet,
     RouterLink,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
   providers: [
     CrewMembersComponent

@@ -22,15 +22,11 @@ export class CrewMemberComponent implements OnInit, OnDestroy {
       this.crewMemberService.getCrewMemberById(Number(params['id'])).subscribe(response => {
         this._crewMember = response;
       })
-    })
+    });
   }
 
   get crewMember(): CrewMembersWithFlights {
     return <CrewMembersWithFlights>this._crewMember;
-  }
-
-  private getCrewMember() {
-
   }
 
   public routeToEditForm(id: number) {
