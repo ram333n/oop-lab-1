@@ -31,7 +31,9 @@ export class FlightsComponent implements OnInit, OnDestroy {
   }
 
   getFlightById(id: number): void {
-
+    this.router.navigate(['get', id], {
+      relativeTo: this.activatedRoute
+    });
   }
 
   deleteFlight(id: number): void {
@@ -40,11 +42,16 @@ export class FlightsComponent implements OnInit, OnDestroy {
     if (confirmDelete) {
       this.flightService.delete(id).subscribe(() => {
         this.getAllFlights();
-      })
+      });
     }
+  }
+
+  showNewFlightForm() {
+    this.router.navigate(['new'], {
+      relativeTo: this.activatedRoute
+    })
   }
 
   ngOnDestroy(): void {
   }
-
 }

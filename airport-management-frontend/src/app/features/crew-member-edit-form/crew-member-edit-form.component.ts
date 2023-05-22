@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
+import { Component } from '@angular/core';
 import {CrewMember} from "../../shared/models/CrewMember";
 import {CrewMemberService} from "../../core/services/crew.member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Position} from "../../shared/enums/Position";
 
 @Component({
-  selector: 'app-crew-member-new-form',
-  templateUrl: './crew-member-new-form.component.html'
+  selector: 'app-crew-member-edit-form',
+  templateUrl: './crew-member-edit-form.component.html'
 })
-export class CrewMemberNewFormComponent implements OnInit {
+export class CrewMemberEditFormComponent {
   private _crewMember!: CrewMember;
 
   constructor(private readonly crewMemberService: CrewMemberService,
@@ -17,7 +17,7 @@ export class CrewMemberNewFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this._crewMember = this.initEmptyCrewMember();
+    this.initCrewMember();
   }
 
   get crewMember(): CrewMember {
@@ -30,17 +30,16 @@ export class CrewMemberNewFormComponent implements OnInit {
     ]
   }
 
-  private initEmptyCrewMember(): CrewMember {
-    return {
-      id: 0,
-      name: "",
-      surname: "",
-      position: Position.pilot
-    };
+  private initCrewMember(): void {
+    this.activatedRoute.params.subscribe(params => {
+      this.crewMemberService.getCrewMemberById(Number(params['id'])).subscribe(response => {
+        this._crewMember = response;
+      })
+    });
   }
 
   onSubmit() {
-    this.crewMemberService.createCrewMember(this._crewMember).subscribe(response => {
+    this.crewMemberService.updateCrewMember(this._crewMember).subscribe(response => {
       this.router.navigate(['crew-members/get', response.id]);
     })
   }

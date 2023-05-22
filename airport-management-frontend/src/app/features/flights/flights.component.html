@@ -8,7 +8,7 @@
 
   <div class="container">
     <div class="row w-25 pb-1">
-      <button class="btn btn-success">Create flight</button>
+      <button class="btn btn-success" (click)="showNewFlightForm()">Create flight</button>
     </div>
 
     <div class="row justify-content-center">
@@ -29,8 +29,8 @@
             <td>{{flight.id}}</td>
             <td>{{flight.departureFrom}}</td>
             <td>{{flight.destination}}</td>
-            <td>{{flight.departureTime}}</td>
-            <td>{{flight.arrivalTime}}</td>
+            <td>{{flight.departureTime | date:'yyyy-MM-dd HH:mm'}}</td>
+            <td>{{flight.arrivalTime | date:'yyyy-MM-dd HH:mm'}}</td>
             <td>
               <button class="btn btn-primary" (click)="getFlightById(flight.id)">Info</button>
               <button class="btn btn-danger mx-1" (click)="deleteFlight(flight.id)">Delete</button>

@@ -26,6 +26,10 @@ export class CrewMemberService {
     return this.httpClient.post<CrewMembersWithFlights>(`${this.baseUrl}/create`, toCreate)
   }
 
+  public updateCrewMember(toUpdate: CrewMember): Observable<CrewMembersWithFlights> {
+    return this.httpClient.put<CrewMembersWithFlights>(`${this.baseUrl}/update`, toUpdate);
+  }
+
   public delete(id: number): Observable<void> {
     return this.httpClient.delete<void>(`${this.baseUrl}/delete?id=${id}`);
   }

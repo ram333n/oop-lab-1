@@ -11,6 +11,10 @@ import { FlightsComponent } from './features/flights/flights.component';
 import { CrewMemberComponent } from './features/crew-member/crew-member.component';
 import { CrewMemberNewFormComponent } from './features/crew-member-new-form/crew-member-new-form.component';
 import { FormsModule } from "@angular/forms";
+import { FlightComponent } from './features/flight/flight.component';
+import { FlightNewFormComponent } from './features/flight-new-form/flight-new-form.component';
+import { CrewMemberEditFormComponent } from './features/crew-member-edit-form/crew-member-edit-form.component';
+import { FlightEditFormComponent } from './features/flight-edit-form/flight-edit-form.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +23,11 @@ import { FormsModule } from "@angular/forms";
     CrewMembersComponent,
     FlightsComponent,
     CrewMemberComponent,
-    CrewMemberNewFormComponent
+    CrewMemberNewFormComponent,
+    FlightComponent,
+    FlightNewFormComponent,
+    CrewMemberEditFormComponent,
+    FlightEditFormComponent
   ],
   imports: [
     BrowserModule,

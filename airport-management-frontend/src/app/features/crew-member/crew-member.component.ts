@@ -30,7 +30,7 @@ export class CrewMemberComponent implements OnInit, OnDestroy {
   }
 
   public routeToEditForm(id: number) {
-
+    this.router.navigate(['crew-members/edit', id]);
   }
 
   deleteFlightFromCrewMember(id: number) {
