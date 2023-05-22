@@ -3,6 +3,7 @@ import {CrewMembersWithFlights} from "../../shared/models/CrewMembersWithFlights
 import {CrewMemberService} from "../../core/services/crew.member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
+import {RelationService} from "../../core/services/relation.service";
 
 @Component({
   selector: 'app-crew-member',
@@ -10,14 +11,19 @@ import {Subscription} from "rxjs";
   providers: [CrewMemberService]
 })
 export class CrewMemberComponent implements OnInit, OnDestroy {
-  private _crewMember?: CrewMembersWithFlights;
+  private _crewMember!: CrewMembersWithFlights;
   private subscription$?: Subscription;
 
   constructor(private readonly crewMemberService: CrewMemberService,
+              private readonly relationService: RelationService,
               private router: Router,
               private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
+    this.retrieveCrewMember();
+  }
+
+  private retrieveCrewMember(): void {
     this.subscription$ = this.activatedRoute.params.subscribe(params => {
       this.crewMemberService.getCrewMemberById(Number(params['id'])).subscribe(response => {
         this._crewMember = response;
@@ -26,17 +32,24 @@ export class CrewMemberComponent implements OnInit, OnDestroy {
   }
 
   get crewMember(): CrewMembersWithFlights {
-    return <CrewMembersWithFlights>this._crewMember;
+    return this._crewMember;
   }
 
   public routeToEditForm(id: number) {
     this.router.navigate(['crew-members/edit', id]);
   }
 
-  deleteFlightFromCrewMember(id: number) {
+  deleteFlightFromCrewMember(flightId: number) {
+    const confirmDelete = confirm(`Do you want to delete flight with id: ${flightId}?`);
 
+    if (confirmDelete) {
+      this.relationService.deleteRelation(this._crewMember.id, flightId).subscribe(() => {
+        this.retrieveCrewMember();
+      })
+    }
   }
 
   ngOnDestroy(): void {
+    this.subscription$?.unsubscribe();
   }
 }
