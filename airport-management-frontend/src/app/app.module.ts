@@ -15,6 +15,10 @@ import { FlightComponent } from './features/flight/flight.component';
 import { FlightNewFormComponent } from './features/flight-new-form/flight-new-form.component';
 import { CrewMemberEditFormComponent } from './features/crew-member-edit-form/crew-member-edit-form.component';
 import { FlightEditFormComponent } from './features/flight-edit-form/flight-edit-form.component';
+import { RelationNewFormComponent } from './features/relation-new-form/relation-new-form.component';
+import { HomePageComponent } from './core/components/home-page/home-page.component';
+import {AuthModule} from "@auth0/auth0-angular";
+import { AuthComponent } from './core/auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +31,10 @@ import { FlightEditFormComponent } from './features/flight-edit-form/flight-edit
     FlightComponent,
     FlightNewFormComponent,
     CrewMemberEditFormComponent,
-    FlightEditFormComponent
+    FlightEditFormComponent,
+    RelationNewFormComponent,
+    HomePageComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
@@ -35,7 +42,14 @@ import { FlightEditFormComponent } from './features/flight-edit-form/flight-edit
     RouterLink,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule
+    FormsModule,
+    AuthModule.forRoot({
+      domain: "dev-8ds78nkj2ix1fsry.us.auth0.com",
+      clientId: "RbW04z9HED7n4BzMlRAusiw4QLj9q60W",
+      authorizationParams: {
+        redirect_uri: 'http://localhost:4200/home',
+      }
+    })
   ],
   providers: [
     CrewMembersComponent

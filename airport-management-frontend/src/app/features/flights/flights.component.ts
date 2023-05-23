@@ -3,6 +3,7 @@ import {Flight} from "../../shared/models/Flight";
 import {CrewMemberService} from "../../core/services/crew.member.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FlightService} from "../../core/services/flight.service";
+import {AuthComponent} from "../../core/auth/auth.component";
 
 @Component({
   selector: 'app-flights',
@@ -13,6 +14,7 @@ export class FlightsComponent implements OnInit, OnDestroy {
   private _flights: Flight[] = [];
 
   constructor(private readonly flightService: FlightService,
+              public auth: AuthComponent,
               private router: Router,
               private activatedRoute: ActivatedRoute) {}
 

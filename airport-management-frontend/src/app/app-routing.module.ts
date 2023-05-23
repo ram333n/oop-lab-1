@@ -13,6 +13,9 @@ import {
   CrewMemberEditFormComponent
 } from "./features/crew-member-edit-form/crew-member-edit-form.component";
 import {FlightEditFormComponent} from "./features/flight-edit-form/flight-edit-form.component";
+import {RelationNewFormComponent} from "./features/relation-new-form/relation-new-form.component";
+import {HomePageComponent} from "./core/components/home-page/home-page.component";
+import {AuthComponent} from "./core/auth/auth.component";
 
 const routes: Routes = [
   {
@@ -58,6 +61,26 @@ const routes: Routes = [
     title: 'Create new flight',
     path: 'flights/new',
     component: FlightNewFormComponent
+  },
+  {
+    title: 'Add flight to crew member',
+    path: 'relation/new',
+    component: RelationNewFormComponent
+  },
+  {
+    title: 'Home page',
+    path: 'home',
+    component: HomePageComponent
+  },
+  {
+    title: 'Auth',
+    path: 'auth',
+    component: AuthComponent
+  },
+  {
+    path: '',
+    redirectTo: 'auth',
+    pathMatch: "full"
   }
 ]
 

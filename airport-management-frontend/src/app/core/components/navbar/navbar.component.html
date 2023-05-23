@@ -9,7 +9,7 @@
   <body>
     <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Airport management system</a>
+        <a class="navbar-brand" routerLink="/">Airport management system</a>
 
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav me-auto">
@@ -19,10 +19,13 @@
             <li class="nav-item">
               <a class="nav-link" routerLink="/flights">Flights</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLink="/relation/new">Add flight to crew member</a>
+            </li>
           </ul>
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link" routerLink="/logout">Logout</a>
+              <button *ngIf="authComponent.isAuthenticated() | async" class="btn btn-primary" (click)="authComponent.logout()">Logout</button>
             </li>
           </ul>
         </div>
