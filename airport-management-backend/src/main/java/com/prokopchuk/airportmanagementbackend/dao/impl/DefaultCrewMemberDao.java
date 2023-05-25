@@ -21,7 +21,7 @@ public class DefaultCrewMemberDao implements CrewMemberDao {
 
   @Override
   public List<CrewMember> findAll() {
-    String sql = "SELECT * FROM crew_members";
+    String sql = "SELECT * FROM crew_members ORDER BY id";
 
     try (Connection connection = DatabaseConnector.getConnection();
          Statement statement = connection.createStatement()) {
@@ -58,6 +58,7 @@ public class DefaultCrewMemberDao implements CrewMemberDao {
       INNER JOIN crew_members_flights cmf
       ON cmf.fk_crew_member_id = cm.id
       WHERE cmf.fk_flight_id = ?
+      ORDER BY cm.id
     """;
 
     try (Connection connection = DatabaseConnector.getConnection();
