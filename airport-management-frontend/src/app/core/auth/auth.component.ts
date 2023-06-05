@@ -1,7 +1,7 @@
 import {Component, Injectable, OnInit} from '@angular/core';
 import {AuthService} from "@auth0/auth0-angular";
 import {Router} from "@angular/router";
-import {Observable} from "rxjs";
+import {Observable, of} from "rxjs";
 
 @Component({
   selector: 'app-auth',
@@ -12,9 +12,12 @@ import {Observable} from "rxjs";
 })
 export class AuthComponent implements OnInit{
   private _role: string | undefined;
+  private user$: Observable<import("@auth0/auth0-spa-js").User | null | undefined>;
 
   constructor(private auth: AuthService,
-              private router: Router) {}
+              private router: Router) {
+    this.user$ = of<import("@auth0/auth0-spa-js").User | null | undefined>([]);
+  }
 
   ngOnInit(): void {
     this.login();
@@ -26,6 +29,8 @@ export class AuthComponent implements OnInit{
         target: '/profile',
       },
     });
+
+    this.user$ = this.auth.user$;
   }
 
   get role(): string | undefined {

@@ -4,6 +4,7 @@ import {Subscription} from "rxjs";
 import {ActivatedRoute, Router} from "@angular/router";
 import {FlightWithCrewMembers} from "../../shared/models/FlightWithCrewMembers";
 import {RelationService} from "../../core/services/relation.service";
+import {AuthComponent} from "../../core/auth/auth.component";
 
 @Component({
   selector: 'app-flight',
@@ -17,7 +18,8 @@ export class FlightComponent {
   constructor(private readonly flightService: FlightService,
               private readonly relationService: RelationService,
               private router: Router,
-              private activatedRoute: ActivatedRoute) {}
+              private activatedRoute: ActivatedRoute,
+              public auth: AuthComponent) {}
 
   ngOnInit(): void {
     this.retrieveFlight();
