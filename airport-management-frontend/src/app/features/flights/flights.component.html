@@ -8,7 +8,9 @@
 
   <div class="container">
     <div class="row w-25 pb-1">
-      <button class="btn btn-success" (click)="showNewFlightForm()">Create flight</button>
+      <ng-container *ngIf="auth.getUser() | async as user">
+        <button class="btn btn-success" *ngIf="user.nickname=='admin'" (click)="showNewFlightForm()">Create flight</button>
+      </ng-container>
     </div>
 
     <div class="row justify-content-center">
@@ -33,7 +35,9 @@
             <td>{{flight.arrivalTime | date:'yyyy-MM-dd HH:mm'}}</td>
             <td>
               <button class="btn btn-primary" (click)="getFlightById(flight.id)">Info</button>
-              <button class="btn btn-danger mx-1" (click)="deleteFlight(flight.id)">Delete</button>
+              <ng-container *ngIf="auth.getUser() | async as user">
+                <button class="btn btn-danger mx-1" *ngIf="user.nickname=='admin'" (click)="deleteFlight(flight.id)">Delete</button>
+              </ng-container>
             </td>
           </tr>
         </tbody>
